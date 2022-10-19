@@ -1,0 +1,9 @@
+applications:
+  - name: Micha's Test Service - shutdown if space is needed
+    buildpacks:
+      - java_buildpack
+    instances: 1
+    memory: 1G
+    path: target\demo1-0.0.1-SNAPSHOT.jar
+    env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
