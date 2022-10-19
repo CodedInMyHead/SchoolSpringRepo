@@ -9,21 +9,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TreeController {
+public class ChristmasTreeController {
 
-    @PostMapping("tree/{length}")
-    public ResponseEntity<String> setTreeLength(@PathVariable final int length) {
-        if (length % 2 == 0) {
+    TreeService treeService;
+    ChristmasTreeController(final TreeService treeService) {
+        this.treeService = treeService;
+    }
+
+
+    @PostMapping("tree/{height}")
+    public ResponseEntity<String> setTreeLength(@PathVariable final int height) {
+        if (height < 0 || height > 100) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
-            TreeService.setLength(length);
-            return ResponseEntity.ok(TreeService.getTree());
+            treeService.setHeight(height);
+            return ResponseEntity.ok(treeService.getTree());
         }
 
     }
 
     @GetMapping("tree")
-    public ResponseEntity<String> getTreeLength() {
-        return ResponseEntity.ok(TreeService.getTree());
+    public ResponseEntity<String> getTree() {
+        return ResponseEntity.ok(treeService.getTree());
     }
 }

@@ -1,51 +1,27 @@
 package com.sap.school.sae.service;
 
 import lombok.Setter;
+import org.springframework.stereotype.Service;
+
 @Setter
+@Service
 public class TreeService {
 
     private TreeService() {
 
     }
-    private static int length;
+    private int height = 9;
 
-    public static void setLength(int i) {
-        length = i;
+    public void setHeight(int i) {
+        height = i;
     }
 
-    public static String getTree() {
-        final int half = (length - 1) / 2;
-        final int lines = half + 1;
-        StringBuilder stringBuilder = new StringBuilder("<pre>");
-        int stars = 1;
-        for (int i = 0; i < lines; i++) {
-            int targetStars = stars;
-            int tempLength = length - i;
-            while(targetStars > 0) {
-                while(tempLength > 0) {
-                    stringBuilder.append(" ");
-                    tempLength--;
-                }
-                stringBuilder.append("*");
-                targetStars--;
-            }
-            stringBuilder.append("\n");
-            stars += 2;
-        }
-        int mod = (length - 1) / 4;
-        while(mod > 0) {
-            stringBuilder.append(" ");
-            mod--;
-        }
-        int t = (length - 1) / 2 + 1;
-        while(t > 0) {
-            stringBuilder.append(" ");
-            t--;
-        }
-        return stringBuilder.append("</pre>").toString();
+    public String getTree() {
+
+        StringBuilder stringBuilder = new StringBuilder("<pre>\n");
+
+        for (int i = 0; i < height; i++) stringBuilder.append(" ".repeat(height - i)).append("*".repeat(2 * i + 1)).append("\n");
+        return stringBuilder.append(" ".repeat(height - 1)).append("***\n").append("</pre>").toString();
     }
 
-    static {
-        length = 9;
-    }
 }
